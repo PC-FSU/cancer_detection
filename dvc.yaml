@@ -1,0 +1,25 @@
+stages:
+  data_ingestion:
+    cmd: python src/cancer_detection/pipeline/stage_01_data_ingestion.py
+    deps:
+      - src/cancer_detection/pipeline/stage_01_data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/Chest-CT-Scan-data
+
+  training_and_tracking:
+    cmd: python src/cancer_detection/pipeline/stage_02_training_and_tracking.py
+    deps:
+      - src/cancer_detection/pipeline/stage_02_training_and_tracking.py
+      - artifacts/data_ingestion/Chest-CT-Scan-data
+      - config/config.yaml
+    params:
+      - IMAGE_SIZE
+      - CLASSES
+      - LEARNING_RATE
+      - BATCH_SIZE
+      - EPOCHS
+    outs:
+      - artifacts/training
+
+  

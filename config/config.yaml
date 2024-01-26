@@ -1,0 +1,31 @@
+artifacts_root: artifacts
+
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: https://drive.google.com/file/d/1XCH-QnrMzm04IQRQQsgfagUqyPiDArDi/view?usp=sharing
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion
+
+
+
+training:
+  root_dir: artifacts/training
+  model_checkpoints: artifacts/training/checkpoints
+
+
+
+mlflow:
+  MLFLOW_TRACKING_URI: # add URI HERE, the one that you get from dagshub
+  MLFLOW_TRACKING_USERNAME: # add username here, the one that you get from dagshub
+  MLFLOW_TRACKING_PASSWORD: # add password here, the one that you get from dagshub
+
+
+
+inference:
+  root_dir: artifacts/inference
+  load_from_local: False
+  path_to_best_checkpoint_local: artifacts/training/checkpoints/validation_epoch=4-step=85-val_loss=0.0.ckpt
+  URL_to_load_from_drive:  https://drive.google.com/file/d/11FlVSyBLSMNozKWeG5xQncgypWi9Hvf7/view?usp=sharing
+  best_model_checkpoints_saved_from_URL: artifacts/inference/best_checkpoint_from_url.cpkt
+  unzip_dir: artifacts/inference

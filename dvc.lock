@@ -1,0 +1,51 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/cancer_detection/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 3dd2108b3f5d705ddbb635209668e08f
+      size: 830
+    - path: src/cancer_detection/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 6b373356b8fcb7b626771bd91d6f03bb
+      size: 900
+    outs:
+    - path: artifacts/data_ingestion/Chest-CT-Scan-data
+      hash: md5
+      md5: 904fa45d934ce879b3b1933dca6cb2f1.dir
+      size: 49247431
+      nfiles: 343
+  training_and_tracking:
+    cmd: python src/cancer_detection/pipeline/stage_02_training_and_tracking.py
+    deps:
+    - path: artifacts/data_ingestion/Chest-CT-Scan-data
+      hash: md5
+      md5: 904fa45d934ce879b3b1933dca6cb2f1.dir
+      size: 49247431
+      nfiles: 343
+    - path: config/config.yaml
+      hash: md5
+      md5: 3dd2108b3f5d705ddbb635209668e08f
+      size: 830
+    - path: src/cancer_detection/pipeline/stage_02_training_and_tracking.py
+      hash: md5
+      md5: 52ff53d0e3838c93df4ca7e1e6eb9615
+      size: 947
+    params:
+      params.yaml:
+        BATCH_SIZE: 16
+        CLASSES: 2
+        EPOCHS: 8
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        LEARNING_RATE: 0.01
+    outs:
+    - path: artifacts/training
+      hash: md5
+      md5: 927caa776c5458f11febcb34df1ccba4.dir
+      size: 537157790
+      nfiles: 1
